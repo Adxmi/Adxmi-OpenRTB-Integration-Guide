@@ -1,4 +1,4 @@
-# Adxmi OpenRTB Integration Guide 1.0
+# Adxmi OpenRTB Integration Guide 2.0
 
 ## Overview
 #### Descripition
@@ -54,7 +54,7 @@ Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by 
 | ~~Segment~~  | ~~3.2.17~~ | ~~Specific data point about a user from a specific data source.~~                  |
 | Regs         | 3.2.18     | Regulatory conditions in effect for all impressions in this bid request.           |
 | Pmp          | 3.2.19     | Collection of private marketplace (PMP) deals applicable to this impression.       |
-| ~~Deal~~     | ~~3.2.20~~ | ~~Deal terms pertaining to this impression between a seller and buyer.~~           |
+| Deal     | 3.2.20 | Deal terms pertaining to this impression between a seller and buyer.           |
 
 ##### Object:BidRequest
 
@@ -86,7 +86,7 @@ Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by 
 | ~~video~~         | ~~object~~       | ~~A  Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.~~                                                                                                                                | ~~n.a~~       |
 | ~~audio~~         | ~~object~~       | ~~An Au dio object (Section 3.2.5); required if this impression is offered as an audio ad opportunity.~~                                                                                                                              | ~~n.a~~       |
 | ~~native~~        | ~~object~~       | ~~A  Native object (Section 3.2.6); required if this impression is offered as a native ad opportunity.~~                                                                                                                              | ~~n.a~~       |
-| ~~pmp~~           | ~~object~~       | ~~A  Pmp object (Section 3.2.19) containing any private marketplace deals in effect for this impression.~~                                                                                                                            | ~~n.a~~       |
+| pmp           | object       | A  Pmp object (Section 3.2.19) containing any private marketplace deals in effect for this impression.                                                                                                                            | n.a       |
 | displaymanager    | string           | Will pass "Adxmi" when the sdk is present.                                                                                                                                                                                            | No            |
 | displaymanagerver | string           | Adxmi SDK version passed from SDK, otherwise not passed                                                                                                                                                                               | No            |
 | instl             | integer          | 1 = the ad is interstitial or full screen, 0 = not interstitial.                                                                                                                                                                      | Yes           |
@@ -223,6 +223,23 @@ Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by 
 | coppa     | integer    | Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes. Field will only be passed when coppa=1. | No            |
 | ~~ext~~   | ~~object~~ | ~~Placeholder for exchange-specific extensions to OpenRTB.~~                                                                                                   | ~~n.a~~       |
 
+##### Object:Pmp
+| attribute       | Tybe               | Description                                                                                                                                                                        | Always passed |
+|-----------------|:------------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| private_auction | integer; default 0 | Indicator of auction eligibility to seats named in the Direct Deals object, where 0 = all bids are accepted, 1 = bids are restricted to the deals specified and the terms thereof. | No            |
+| deals           | object array       | array of Deal objects that convey the specific deals applicable to this impression.                                                                                                | No            |
+| ~~ext~~         | ~~object~~         | ~~Placeholder for exchange-specific extensions to OpenRTB.~~                                                                                                                       | ~~n.a~~       |
+
+##### Object:Deal
+| attribute   | Tybe                  | Description                                                                                                                                                                                                                                                       | Always passed |
+|-------------|:---------------------:|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| id          | string; required      | A unique identifier for the direct deal.                                                                                                                                                                                                                          | Yes           |
+| bidfloor    | float; default 0      | Minimum bid for this impression expressed in CPM.                                                                                                                                                                                                                 | No            |
+| bidfloorcur | string; default ”USD” | Currency specified using ISO-4217 alpha codes. This may be different from bid currency returned by bidder if this is allowed by the exchange.                                                                                                                     | No            |
+| at          | integer               | Optional override of the overall auction type of the bid request, where 1 = First Price, 2 = Second Price Plus, 3 = the value passed in bidfloor is the agreed upon deal price. Additional auction types can be defined by the exchange.                          | Yes           |
+| wseat       | string array          | Whitelist of buyer seats (e.g., advertisers, agencies) allowed to bid on this deal. IDs of seats and knowledge of the buyer’s customers to which they refer must be coordinated between bidders and the exchange a priori. Omission implies no seat restrictions. | No            |
+| wadomain    | string array          | Array of advertiser domains (e.g., advertiser.com) allowed to bid on this deal. Omission implies no advertiser restrictions.                                                                                                                                      | No            |
+| ~~ext~~     | ~~object~~            | ~~Placeholder for exchange-specific extensions to OpenRTB.~~                                                                                                                                                                                                      | ~~n.a~~       |
 
 
 #### Bid Response Specification
