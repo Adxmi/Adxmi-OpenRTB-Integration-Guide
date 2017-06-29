@@ -33,28 +33,28 @@
 
 Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by ~~strikethrough~~.
 
-| Object       | Section    | Description                                                                        |
-|--------------|:----------:|------------------------------------------------------------------------------------|
-| BidRequest   | 3.2.1      | Top-level object                                                                   |
-| Imp          | 3.2.2      | Container for the description of a specific impression; at least 1 per request.    |
-| Banner       | 3.2.3      | Details for a banner impression (incl. in-banner video) or video companion ad.     |
-| ~~Video~~    | ~~3.2.4~~  | ~~Details for a video impression.~~                                                |
-| ~~Audio~~    | ~~3.2.5~~  | ~~Container for an audio impression.~~                                             |
-| ~~Native~~   | ~~3.2.6~~  | ~~Container for a native impression conforming to the Dynamic Native Ads API.~~    |
-| Format       | 3.2.7      | An allowed size of a banner                                                        |
-| ~~site~~     | ~~3.2.8~~  | ~~Details of the website calling for the impression.~~                             |
-| App          | 3.2.9      | Details of the application calling for the impression.                             |
-| Publisher    | 3.2.10     | Entity that controls the content of and distributes the site or app.               |
-| ~~Content~~  | ~~3.2.11~~ | ~~Details about the published content itself, within which the ad will be shown.~~ |
-| ~~Producer~~ | ~~3.2.12~~ | ~~Producer of the content; not necessarily the publisher (e.g., syndication).~~    |
-| Device       | 3.2.13     | Details of the device on which the content and impressions are displayed.          |
-| Geo          | 3.2.14     | Location of the device or user’s home base depending on the parent object.         |
-| User         | 3.2.15     | Human user of the device; audience for advertising.                                |
-| ~~Data~~     | ~~3.2.16~~ | ~~Collection of additional user targeting data from a specific data source.~~      |
-| ~~Segment~~  | ~~3.2.17~~ | ~~Specific data point about a user from a specific data source.~~                  |
-| Regs         | 3.2.18     | Regulatory conditions in effect for all impressions in this bid request.           |
-| Pmp          | 3.2.19     | Collection of private marketplace (PMP) deals applicable to this impression.       |
-| Deal     | 3.2.20 | Deal terms pertaining to this impression between a seller and buyer.           |
+| Object       | Description                                                                        |
+|--------------|------------------------------------------------------------------------------------|
+| BidRequest   | Top-level object                                                                   |
+| Imp          | Container for the description of a specific impression; at least 1 per request.    |
+| Banner       | Details for a banner impression (incl. in-banner video) or video companion ad.     |
+| Video        | Details for a video impression.                                                    |
+| ~~Audio~~    | ~~Container for an audio impression.~~                                             |
+| ~~Native~~   | ~~Container for a native impression conforming to the Dynamic Native Ads API.~~    |
+| Format       | An allowed size of a banner                                                        |
+| ~~site~~     | ~~Details of the website calling for the impression.~~                             |
+| App          | Details of the application calling for the impression.                             |
+| Publisher    | Entity that controls the content of and distributes the site or app.               |
+| ~~Content~~  | ~~Details about the published content itself, within which the ad will be shown.~~ |
+| ~~Producer~~ | ~~Producer of the content; not necessarily the publisher (e.g., syndication).~~    |
+| Device       | Details of the device on which the content and impressions are displayed.          |
+| Geo          | Location of the device or user’s home base depending on the parent object.         |
+| User         | Human user of the device; audience for advertising.                                |
+| ~~Data~~     | ~~Collection of additional user targeting data from a specific data source.~~      |
+| ~~Segment~~  | ~~Specific data point about a user from a specific data source.~~                  |
+| Regs         | Regulatory conditions in effect for all impressions in this bid request.           |
+| Pmp          | Collection of private marketplace (PMP) deals applicable to this impression.       |
+| Deal         | Deal terms pertaining to this impression between a seller and buyer.               |
 
 ##### Object:BidRequest
 
@@ -82,11 +82,11 @@ Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by 
 | attribute         | Tybe             | Description                                                                                                                                                                                                                           | Always passed |
 |-------------------|:----------------:|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
 | id                | string           | A unique identifier for this impression within the context of the bid request (typically, starts with 1 and increments.                                                                                                               | Yes           |
-| banner            | object           | A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.                                                                                                                                   | Yes           |
-| ~~video~~         | ~~object~~       | ~~A  Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.~~                                                                                                                                | ~~n.a~~       |
+| banner            | object           | A Banner object (Section 3.2.3); required if this impression is offered as a banner ad opportunity.                                                                                                                                   | No            |
+| video             | object           | A  Video object (Section 3.2.4); required if this impression is offered as a video ad opportunity.                                                                                                                                    | No            |
 | ~~audio~~         | ~~object~~       | ~~An Au dio object (Section 3.2.5); required if this impression is offered as an audio ad opportunity.~~                                                                                                                              | ~~n.a~~       |
 | ~~native~~        | ~~object~~       | ~~A  Native object (Section 3.2.6); required if this impression is offered as a native ad opportunity.~~                                                                                                                              | ~~n.a~~       |
-| pmp           | object       | A  Pmp object (Section 3.2.19) containing any private marketplace deals in effect for this impression.                                                                                                                            | n.a       |
+| pmp               | object           | A  Pmp object (Section 3.2.19) containing any private marketplace deals in effect for this impression.                                                                                                                                | n.a           |
 | displaymanager    | string           | Will pass "Adxmi" when the sdk is present.                                                                                                                                                                                            | No            |
 | displaymanagerver | string           | Adxmi SDK version passed from SDK, otherwise not passed                                                                                                                                                                               | No            |
 | instl             | integer          | 1 = the ad is interstitial or full screen, 0 = not interstitial.                                                                                                                                                                      | Yes           |
@@ -118,6 +118,34 @@ Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by 
 | ~~expdir~~   | ~~integer array~~ | ~~Directions in which the banner may expand. Refer to List 5.5.~~                                                                                                                                                                                                   | ~~n.a~~       |
 | api          | integer array     | Currently Adxmi support MRAID-2 Only                                                                                                                                                                                                                                | Yes           |
 | ~~ext~~      | ~~object~~        | ~~Placeholder for exchange-specific extensions to OpenRTB.~~                                                                                                                                                                                                        | ~~n.a~~       |
+
+##### Object:video
+| attribute          | Tybe                       | Description                                                                                                                                                                                                                                                                                     | Always passed |
+|--------------------|:--------------------------:|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| mimes              | string array; required     | Content MIME types supported. Popular MIME types may include “video/x-ms-wmv” for Windows Media and “video/x-flv” for Flash Video.                                                                                                                                                              | Yes           |
+| ~~minduration~~    | ~~integer; recommended~~   | ~~Minimum video ad duration in seconds.~~                                                                                                                                                                                                                                                       | ~~n.a~~       |
+| ~~maxduration~~    | ~~integer; recommended~~   | ~~Maximum video ad duration in seconds.~~                                                                                                                                                                                                                                                       | ~~n.a~~       |
+| protocols          | integer array; recommended | Array of supported audio protocols.                                                                                                                                                                                                                                                             | Yes           |
+| w                  | integer; recommended       | Width of the video player in device independent pixels (DIPS).                                                                                                                                                                                                                                  | Yes           |
+| h                  | integer; recommended       | Height of the video player in device independent pixels (DIPS).                                                                                                                                                                                                                                 | Yes           |
+| ~~startdelay~~     | ~~integer; recommended~~   | ~~Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements. Refer to List 5.10 for additional generic values.~~                                                                                                                                                  | ~~n.a~~       |
+| ~~linearity~~      | ~~integer~~                | ~~Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.~~                                                                                                                                                                                      | ~~n.a~~       |
+| skip               | integer                    | Indicates if the player will allow the video to be skipped, where 0 = no, 1 = yes.                                                                                                                                                                                                              | Yes           |
+| skipmin            | integer; default 0         | Videos of total duration greater than this number of seconds can be skippable; only applicable if the ad is skippable.                                                                                                                                                                          | Yes           |
+| skipafter          | integer; default 0         | Number of seconds a video must play before skipping is enabled; only applicable if the ad is skippable.                                                                                                                                                                                         | Yes           |
+| ~~sequence~~       | ~~integer~~                | ~~If multiple ad impressions are offered in the same bid request, the sequence number will allow for the coordinated delivery of multiple creatives.~~                                                                                                                                          | ~~n.a~~       |
+| ~~battr~~          | ~~integer~~                | ~~Blocked creative attributes.~~                                                                                                                                                                                                                                                                | ~~n.a~~       |
+| ~~maxextended~~    | ~~integer array~~          | ~~Maximum extended ad duration if extension is allowed. If blank or 0, extension is not allowed. If -1, extension is allowed, and there is no time limit imposed. If greater than 0, then the value represents the number of seconds of extended play supported beyond the maxduration value.~~ | ~~n.a~~       |
+| ~~minbitrate~~     | ~~integer~~                | ~~Minimum bit rate in Kbps.~~                                                                                                                                                                                                                                                                   | ~~n.a~~       |
+| ~~maxbitrate~~     | ~~integer~~                | ~~Maximum bit rate in Kbps.~~                                                                                                                                                                                                                                                                   | ~~n.a~~       |
+| ~~boxingallowed~~  | ~~integer; default 1~~     | ~~Indicates if letter-boxing of 4:3 content into a 16:9 window is allowed, where 0 = no, 1 = yes.~~                                                                                                                                                                                             | ~~n.a~~       |
+| ~~playbackmethod~~ | ~~integer array~~          | ~~Playback methods that may be in use. If none are specified, any method may be used. Refer to List 5.9. Only one method is typically used in practice. As a result, this array may be converted to an integer in a future version of the specification.~~                                      | ~~n.a~~       |
+| ~~delivery~~       | ~~integer array~~          | ~~Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported.~~                                                                                                                                                                                     | ~~n.a~~       |
+| pos                | integer                    | Ad position on screen.                                                                                                                                                                                                                                                                          | No            |
+| ~~companionad~~    | ~~object array~~           | ~~Array of Banner objects if companion ads are available.~~                                                                                                                                                                                                                                     | ~~n.a~~       |
+| ~~api~~            | ~~integer array~~          | ~~List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.~~                                                                                                                                                                | ~~n.a~~       |
+| ~~companiontype~~  | ~~integer array~~          | ~~Supported VAST companion ad types. Recommended if companion Banner objects are included via the companionad array.~~                                                                                                                                                                          | ~~n.a~~       |
+| ~~ext~~            | ~~object~~                 | ~~Placeholder for exchange-specific extensions to OpenRTB.~~                                                                                                                                                                                                                                    | ~~n.a~~       |
 
 ##### Object:Format
 | attribute | Tybe       | Description                                                  | Always passed |
