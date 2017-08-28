@@ -54,7 +54,7 @@ Any objects and sttributes from OpenRTB not supported by Adxmi will be noted by 
 | ~~Segment~~  | ~~Specific data point about a user from a specific data source.~~                  |
 | Regs         | Regulatory conditions in effect for all impressions in this bid request.           |
 | Pmp          | Collection of private marketplace (PMP) deals applicable to this impression.       |
-| Deal         | Deal terms pertaining to this impression between a seller and buyer.               |
+| ~~Deal~~     | ~~Deal terms pertaining to this impression between a seller and buyer.~~           |
 
 ##### Object:BidRequest
 
